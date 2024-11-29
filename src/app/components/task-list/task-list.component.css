@@ -1,0 +1,60 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 0px 10px;
+}
+
+.task {
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+
+    border-radius: 5px;
+    border: 1px;
+    border-style: outset;
+
+    transition: background-position 0.5s;
+    background-size: 200% 100%;
+    background-image: linear-gradient(to right, lightgreen 50%, white 50%);
+    background-position: 100% 0;   
+}
+
+.completed {
+    background-position: 0 0;
+}
+
+.task-info {
+    flex: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+    display: flex;
+}
+
+.action-btn {
+    background-color: transparent;
+    border: none;
+    width: 30px;
+}
+
+.no-data-message {
+    text-align: center;
+    text-decoration: underline;
+    position: absolute;
+    top: 50%;
+    width: 100%
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: transparent !important;
+}
+
+::ng-deep .mat-mdc-fab-base {
+    background-color: #f0f0f0;
+}
+
+::ng-deep .toolbar .mat-icon {
+    height: 50px;
+    width: 50px;
+    font-size: 50px;
+}
