@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon'
 
-import { Task, TaskService } from '../../services/task.service';
+import { Task, TaskService, Status } from '../../services/task.service';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
 
 
@@ -20,6 +20,8 @@ import { TaskModalComponent } from '../task-modal/task-modal.component';
 export class TaskListComponent {
   
   taskList!: Task[];
+  pageStatus!: string;
+  status = Status;
 
   sortOptions = ['TitleAsc', 'TitleDesc', 'CreateAsc', 'CreateDesc'];
   selectedSort = this.sortOptions[0];
@@ -31,6 +33,11 @@ export class TaskListComponent {
     this.taskService.getTasks$()
       .subscribe((tasks: Task[]) => {
         this.taskList = tasks;
+      });
+
+    this.taskService.getStatus$()
+      .subscribe((status: string) => {
+        this.pageStatus = status;
       });
   }
 

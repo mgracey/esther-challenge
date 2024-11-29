@@ -11,6 +11,12 @@ export interface TaskFragment {
   completed?: boolean;
 }
 
+export enum Status {
+  Loading = 'Loading',
+  Ready = 'Ready',
+  Error = 'Error'
+}
+
 enum Endpoint {
   tasks = 'https://95nl7pkw84.execute-api.eu-west-1.amazonaws.com/esther-challenge/michael/tasks',
   task = 'https://95nl7pkw84.execute-api.eu-west-1.amazonaws.com/esther-challenge/michael/task/{taskID}'
@@ -32,19 +38,22 @@ export class TaskService {
   private taskListSubject = new BehaviorSubject<Task[]>([]);
   taskList$ = this.taskListSubject.asObservable();
 
-  getTasks(): Task[] {
-    return this.taskListSubject.getValue();
-  }
+  private statusSubject = new BehaviorSubject<string>(Status.Loading);
+  statusSubject$ = this.statusSubject.asObservable();
 
   getTasks$(): Observable<Task[]> {
     return this.taskList$;
+  }
+
+  getStatus$(): Observable<string> {
+    return this.statusSubject$;
   }
 
   createTask(taskToAdd: Task) {
     this.http.post<string>(Endpoint.tasks, taskToAdd)
       .subscribe({
         next: idString => this.addTask(idString, taskToAdd),
-        error: error => this.handleError(error)
+        error: () => this.handleError()
       });
   }
 
@@ -52,7 +61,7 @@ export class TaskService {
     this.http.delete(Endpoint.task.replace('{taskID}', taskId))
       .subscribe({
         next: () => this.removeTask(taskId),
-        error: error => this.handleError(error)
+        error: () => this.handleError()
       });
   }
 
@@ -60,7 +69,7 @@ export class TaskService {
     this.http.patch<string>(Endpoint.task.replace('{taskID}', id), task)
     .subscribe({
       next: () => this.updateTask(task, id),
-      error: error => this.handleError(error)
+      error: () => this.handleError()
     });
   }
 
@@ -68,17 +77,24 @@ export class TaskService {
     this.http.get<any>(Endpoint.tasks)
       .pipe(map(data => data.tasks))
       .subscribe({
-        next: (tasks: Task[]) => this.setTasks(tasks),
-        error: error => this.handleError(error)
+        next: (tasks: Task[]) => {
+          this.setTasks(tasks);
+          this.statusSubject.next(Status.Ready);
+        },
+        error: () => this.handleError()
       });
+  }
+
+  private getTasks(): Task[] {
+    return this.taskListSubject.getValue();
   }
 
   private setTasks(tasks: Task[]): void {
     this.taskListSubject.next(tasks);
   }
 
-  private handleError(error: any): void {
-    console.log(error); //TODO HANDLE THIS
+  private handleError(): void {
+    this.statusSubject.next(Status.Error);
   }
 
   /*
