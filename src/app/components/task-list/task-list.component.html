@@ -6,8 +6,8 @@
     
         <mat-form-field>
             <mat-label>Sort By</mat-label>
-            <mat-select matNativeControl [(value)]="selectedSort">
-                <mat-option *ngFor="let option of sortOptions" value="{{option}}">{{option}}</mat-option>
+            <mat-select matNativeControl [(value)]="selectedSort" (selectionChange)="applySort()">
+                <mat-option *ngFor="let option of sortOptions" value="{{ option }}">{{ option }}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>

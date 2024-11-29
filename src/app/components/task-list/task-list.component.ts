@@ -32,6 +32,7 @@ export class TaskListComponent {
   ) {
     this.taskService.getTasks$()
       .subscribe((tasks: Task[]) => {
+        tasks = this.sort(tasks);
         this.taskList = tasks;
       });
 
@@ -39,6 +40,43 @@ export class TaskListComponent {
       .subscribe((status: string) => {
         this.pageStatus = status;
       });
+  }
+
+  applySort(): void {
+    this.taskList = this.sort(this.taskList);
+  }
+
+  sort(tasks: Task[]): Task[] {
+    switch(this.selectedSort) {
+      case 'TitleDesc':
+        return this.sortFn(tasks, 'title', true);
+        break;
+      case 'CreateAsc':
+        return this.sortFn(tasks, 'dateCreated', false);
+        break;
+      case 'CreateDesc':
+        return this.sortFn(tasks, 'dateCreated', true);
+        break;
+      default: 
+        return this.sortFn(tasks, 'title', false);
+    }
+  }
+
+  sortFn(tasks: Task[], sortField: string, isDescending: boolean): Task[] {
+    const sortedTasks = tasks.sort((a,b) => {
+      let fieldA = a[sortField as keyof Task] || '';
+      let fieldB = b[sortField as keyof Task] || '';
+
+      if (fieldA < fieldB) {
+        return -1;
+      }
+      if (fieldA > fieldB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    return isDescending ? sortedTasks.reverse(): sortedTasks;
   }
 
   deleteTask(taskId: string): void {
