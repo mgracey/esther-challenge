@@ -13,11 +13,11 @@
 
 
 <div class="task" *ngFor="let task of taskList"  [ngClass]="{'completed': task.completed}">
-    <button class="action-btn" (click)="completeTask(task.id)">
+    <button class="action-btn" [tabindex]="task.completed ? -1 : 0" (click)="completeTask(task.id)">
         <mat-icon *ngIf="!task.completed">check</mat-icon>
     </button>
     
-    <span class="task-info" (click)="openModal(task)">
+    <span class="task-info" tabindex="0" (click)="openModal(task)" (keyup.enter)="openModal(task)">
         {{ task.title }}
         <div>
             <small>{{ task.dateCreated | date: 'dd/MM/yyyy' }}</small>
