@@ -1,0 +1,19 @@
+.chart {
+    width: 98%; 
+    display: block;
+    border:2px solid;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.message {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    width: 100%
+}
+
+.underline {
+    text-decoration: underline;
+}

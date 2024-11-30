@@ -113,7 +113,6 @@ export class TaskService {
   private removeTask(taskId: string): void {
     const filteredTasks = this.getTasks().filter(task => task.id !== taskId);
     this.setTasks(filteredTasks);
-    console.log(this.getTasks());
   }
 
   private updateTask(updatedTask: TaskFragment, taskId: string): void {
@@ -126,6 +125,4 @@ export class TaskService {
     }
     this.setTasks(tasks);
   }
-
-
 }

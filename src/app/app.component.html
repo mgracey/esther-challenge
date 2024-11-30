@@ -1,1 +1,35 @@
-<app-task-list></app-task-list>
+
+
+<div *ngIf="pageStatus === status.Ready" >
+    <div *ngIf="!mobileLayout" class="web-container">
+        <div class="task-half">
+            <app-task-list></app-task-list>
+        </div>
+        <div class="chart-half">
+            <app-progress-chart></app-progress-chart>
+            <app-progress-chart></app-progress-chart>
+        </div>
+    </div>
+
+    <div *ngIf="mobileLayout">
+        <mat-tab-group>
+            <mat-tab label="Tasks">
+                <app-task-list></app-task-list>
+            </mat-tab>
+            <mat-tab label="Task Analytics">
+                <div class="chart-tab">
+                    <app-progress-chart></app-progress-chart>
+                    <app-progress-chart></app-progress-chart>
+                </div>
+            </mat-tab>
+          </mat-tab-group>
+    </div>
+</div>
+
+<div *ngIf="pageStatus === status.Error" class="error message">
+    An error has occured, please refresh and try again.
+</div>
+
+<div *ngIf="pageStatus === status.Loading" class="message">
+    Loading ...
+</div>
