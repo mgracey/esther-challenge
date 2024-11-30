@@ -7,12 +7,13 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { TaskListComponent } from "./components/task-list/task-list.component";
 import { ProgressChartComponent } from "./components/progress-chart/progress-chart.component";
+import { TimeTakenChartComponent } from './components/time-taken-chart/time-taken-chart.component';
 import { Status, TaskService } from './services/task.service';
 
 
 @Component({
   selector: 'app-root',
-  imports: [TaskListComponent, ProgressChartComponent, CommonModule, MatTabsModule, MatProgressSpinnerModule],
+  imports: [TaskListComponent, ProgressChartComponent, TimeTakenChartComponent, CommonModule, MatTabsModule, MatProgressSpinnerModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
@@ -8,7 +7,7 @@ import { Task, TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-progress-chart',
-  imports: [CommonModule, HighchartsChartModule],
+  imports: [HighchartsChartModule],
   templateUrl: './progress-chart.component.html',
   styleUrl: './progress-chart.component.css'
 })
@@ -16,7 +15,6 @@ export class ProgressChartComponent {
   totalCompleted = 0;
   totalIncomplete = 0;
 
-  isHighcharts = typeof Highcharts === 'object';
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions!: Highcharts.Options;
 
@@ -39,7 +37,7 @@ export class ProgressChartComponent {
           
         }
         else {
-          title = 'Create a task to view task analytics';
+          title = 'No task data is currently present';
           chartData = [];
         }
 
