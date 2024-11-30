@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { TaskListComponent } from "./components/task-list/task-list.component";
 import { ProgressChartComponent } from "./components/progress-chart/progress-chart.component";
@@ -10,7 +12,7 @@ import { Status, TaskService } from './services/task.service';
 
 @Component({
   selector: 'app-root',
-  imports: [TaskListComponent, ProgressChartComponent, CommonModule, MatTabsModule],
+  imports: [TaskListComponent, ProgressChartComponent, CommonModule, MatTabsModule, MatProgressSpinnerModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

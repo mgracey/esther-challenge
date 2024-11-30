@@ -35,11 +35,6 @@ export class TaskListComponent {
         tasks = this.sort(tasks);
         this.taskList = tasks;
       });
-
-    this.taskService.getStatus$()
-      .subscribe((status: string) => {
-        this.pageStatus = status;
-      });
   }
 
   applySort(): void {

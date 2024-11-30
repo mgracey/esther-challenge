@@ -1,46 +1,36 @@
-<div *ngIf="pageStatus === status.Ready">
-    <div class="toolbar">
-        <button mat-fab (click)="openModal()">
-            <mat-icon>add</mat-icon>
-        </button>
-    
-        <mat-form-field>
-            <mat-label>Sort By</mat-label>
-            <mat-select matNativeControl [(value)]="selectedSort" (selectionChange)="applySort()">
-                <mat-option *ngFor="let option of sortOptions" value="{{ option }}">{{ option }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    
-    
-    <div class="task" *ngFor="let task of taskList"  [ngClass]="{'completed': task.completed}">
-        <button class="action-btn" (click)="completeTask(task.id)">
-            <mat-icon *ngIf="!task.completed">check</mat-icon>
-        </button>
-        
-        <span class="task-info" (click)="openModal(task)">
-            {{ task.title }}
-            <div>
-                <small>{{ task.dateCreated | date: 'dd/MM/yyyy' }}</small>
-                <small *ngIf="task.completed"> - {{ task.dateCompleted | date: 'dd/MM/yyyy' }}</small>
-            </div>
-    
-        </span>
-        
-        <button class="action-btn" (click)="deleteTask(task.id)">
-            <mat-icon>close</mat-icon>
-        </button>
-    </div>
-    
-    <div *ngIf="!taskList.length" class="underline message">
-        Lucky you, you have no tasks to complete.
-    </div>
+<div class="toolbar">
+    <button mat-fab (click)="openModal()">
+        <mat-icon>add</mat-icon>
+    </button>
+
+    <mat-form-field>
+        <mat-label>Sort By</mat-label>
+        <mat-select matNativeControl [(value)]="selectedSort" (selectionChange)="applySort()">
+            <mat-option *ngFor="let option of sortOptions" value="{{ option }}">{{ option }}</mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 
-<div *ngIf="pageStatus === status.Error" class="error message">
-    An error has occured, please refresh and try again.
+
+<div class="task" *ngFor="let task of taskList"  [ngClass]="{'completed': task.completed}">
+    <button class="action-btn" (click)="completeTask(task.id)">
+        <mat-icon *ngIf="!task.completed">check</mat-icon>
+    </button>
+    
+    <span class="task-info" (click)="openModal(task)">
+        {{ task.title }}
+        <div>
+            <small>{{ task.dateCreated | date: 'dd/MM/yyyy' }}</small>
+            <small *ngIf="task.completed"> - {{ task.dateCompleted | date: 'dd/MM/yyyy' }}</small>
+        </div>
+
+    </span>
+    
+    <button class="action-btn" (click)="deleteTask(task.id)">
+        <mat-icon>close</mat-icon>
+    </button>
 </div>
 
-<div *ngIf="pageStatus === status.Loading" class="message">
-    Loading ...
+<div *ngIf="!taskList.length" class="no-data-message">
+    Lucky you, you have no tasks to complete.
 </div>

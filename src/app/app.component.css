@@ -21,3 +21,17 @@
     display: flex;
 }
 
+.spinner {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+
+.error-message {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    color: red;
+    text-decoration: underline;
+}

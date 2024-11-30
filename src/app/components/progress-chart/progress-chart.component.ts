@@ -21,21 +21,36 @@ export class ProgressChartComponent {
   chartOptions!: Highcharts.Options;
 
   constructor(private taskService: TaskService) {
+    
     this.taskService.getTasks$()
       .subscribe((tasks: Task[]) => {
         this.totalCompleted = tasks.filter((x)=> x.completed).length;
         this.totalIncomplete = tasks.filter((x)=> !x.completed).length;
 
+        let chartData: any;
+        let title: string;
+
+        if (this.totalCompleted || this.totalIncomplete) {
+          title = 'Completed vs Incomplete';
+          chartData = [
+            {name: 'Completed', y:this.totalCompleted},
+            {name: 'Incomplete', y:this.totalIncomplete}
+          ];
+          
+        }
+        else {
+          title = 'Create a task to view task analytics';
+          chartData = [];
+        }
+
         this.chartOptions = {
           title: {
-            text: 'Completed vs Incomplete'
+            text: title
           },
           colors: [ "lightgreen", "#e34234"], 
           series: [{
             name: 'Tasks',
-            data: [
-              {name: 'Completed', y:this.totalCompleted},
-              {name: 'Incomplete', y:this.totalIncomplete}],
+            data: chartData,
             type: 'pie'
           }]
         };

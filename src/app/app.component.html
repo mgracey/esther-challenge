@@ -26,10 +26,10 @@
     </div>
 </div>
 
-<div *ngIf="pageStatus === status.Error" class="error message">
+<div *ngIf="pageStatus === status.Error" class="error-message">
     An error has occured, please refresh and try again.
 </div>
 
-<div *ngIf="pageStatus === status.Loading" class="message">
-    Loading ...
+<div *ngIf="pageStatus === status.Loading" class="spinner">
+    <mat-spinner></mat-spinner>
 </div>

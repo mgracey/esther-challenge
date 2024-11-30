@@ -1,10 +1,5 @@
 <highcharts-chart
-    *ngIf="(totalCompleted || totalIncomplete)"
     class="chart" 
     [Highcharts]="Highcharts"
     [options]="chartOptions">
 </highcharts-chart>
-
-<div *ngIf="!(totalCompleted || totalIncomplete)" class="underline message">
-    You currently don't have any tasks
-</div>
