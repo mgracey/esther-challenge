@@ -11,25 +11,27 @@
     </mat-form-field>
 </div>
 
-
-<div class="task" *ngFor="let task of taskList"  [ngClass]="{'completed': task.completed}">
-    <button class="action-btn" [tabindex]="task.completed ? -1 : 0" (click)="completeTask(task.id)">
-        <mat-icon *ngIf="!task.completed">check</mat-icon>
-    </button>
+<div class="tasks-container">
+    <div class="task" *ngFor="let task of taskList"  [ngClass]="{'completed': task.completed}">
+        <button class="action-btn" [tabindex]="task.completed ? -1 : 0" (click)="completeTask(task.id)">
+            <mat-icon *ngIf="!task.completed">check</mat-icon>
+        </button>
+        
+        <span class="task-info" tabindex="0" (click)="openModal(task)" (keyup.enter)="openModal(task)">
+            {{ task.title }}
+            <div>
+                <small>{{ task.dateCreated | date: 'dd/MM/yyyy' }}</small>
+                <small *ngIf="task.completed"> - {{ task.dateCompleted | date: 'dd/MM/yyyy' }}</small>
+            </div>
     
-    <span class="task-info" tabindex="0" (click)="openModal(task)" (keyup.enter)="openModal(task)">
-        {{ task.title }}
-        <div>
-            <small>{{ task.dateCreated | date: 'dd/MM/yyyy' }}</small>
-            <small *ngIf="task.completed"> - {{ task.dateCompleted | date: 'dd/MM/yyyy' }}</small>
-        </div>
-
-    </span>
-    
-    <button class="action-btn" (click)="deleteTask(task.id)">
-        <mat-icon>close</mat-icon>
-    </button>
+        </span>
+        
+        <button class="action-btn" (click)="deleteTask(task.id)">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
 </div>
+
 
 <div *ngIf="!taskList.length" class="no-data-message">
     Lucky you, you have no tasks to complete.

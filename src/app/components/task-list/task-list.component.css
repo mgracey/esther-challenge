@@ -2,6 +2,20 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 10px 0px 10px;
+    height: 80px;
+}
+
+
+.tasks-container {
+    overflow-y: auto;
+    height: calc(100vh - 90px);
+}
+
+@media only screen and (max-width: 1279.98px) {
+    .tasks-container {
+        overflow-y: auto;
+        height: calc(100vh - 140px);
+    }
 }
 
 .task {

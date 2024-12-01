@@ -23,7 +23,7 @@ export class TaskListComponent {
   pageStatus!: string;
   status = Status;
 
-  sortOptions = ['TitleAsc', 'TitleDesc', 'CreateAsc', 'CreateDesc'];
+  sortOptions = ['Title (Ascending)', 'Title (Desending)', 'Create (Ascending)', 'Create (Desending)'];
   selectedSort = this.sortOptions[0];
 
   constructor(
@@ -43,13 +43,13 @@ export class TaskListComponent {
 
   sort(tasks: Task[]): Task[] {
     switch(this.selectedSort) {
-      case 'TitleDesc':
+      case this.sortOptions[1]:
         return this.sortFn(tasks, 'title', true);
         break;
-      case 'CreateAsc':
+      case this.sortOptions[2]:
         return this.sortFn(tasks, 'dateCreated', false);
         break;
-      case 'CreateDesc':
+      case this.sortOptions[3]:
         return this.sortFn(tasks, 'dateCreated', true);
         break;
       default: 
@@ -61,6 +61,11 @@ export class TaskListComponent {
     const sortedTasks = tasks.sort((a,b) => {
       let fieldA = a[sortField as keyof Task] || '';
       let fieldB = b[sortField as keyof Task] || '';
+
+      if (typeof fieldA === 'string' && typeof fieldB === 'string') {
+        fieldA = fieldA.toLowerCase();
+        fieldB = fieldB.toLowerCase();
+      }
 
       if (fieldA < fieldB) {
         return -1;

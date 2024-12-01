@@ -1,7 +1,6 @@
 .task-half {
     width: 50%;
     height: 100vh;
-    overflow-y: scroll;
 }
 
 .chart-half {
@@ -9,6 +8,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    padding-left: 10px;
 }
 
 .chart-tab {
